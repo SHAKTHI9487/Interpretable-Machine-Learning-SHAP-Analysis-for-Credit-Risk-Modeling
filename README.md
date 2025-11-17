@@ -77,8 +77,6 @@ Local SHAP Force Plots for 3 critical test cases
 
 4. Model Performance Summary
 
-(Use exact values from your run — placeholders shown below.)
-
 AUC: 0.89
 
 F1 Score: 0.78
@@ -265,13 +263,11 @@ import json
 import warnings
 warnings.filterwarnings("ignore")
 
-# ---------- USER CONFIG ----------
-DATA_PATH = "credit_data.csv"   # place your dataset here
-TARGET_COL = "default"          # change if target column name is different
-OUTPUT_DIR = "submission_outputs"
+DATA_PATH = "D:\Applied"   
+TARGET_COL = "default"         
+OUTPUT_DIR = "D:\Applied"
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
-# ---------------------------------
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -481,7 +477,7 @@ shap_summary_df.to_csv(os.path.join(OUTPUT_DIR, "shap_summary_values.csv"), inde
 
 # 8) Write text deliverables: Performance report, SHAP interpretations (templates), Executive Summary
 perf_text = f"""Performance Report
-==================
+
 Model: LightGBM (best found via RandomizedSearchCV)
 Test set size: {len(y_test)}
 AUC: {auc:.4f}
@@ -524,15 +520,13 @@ Example (fill/replace after running):
   - Top driver 2: credit_score (value: 520) | SHAP: -0.31 -> pushed away from default (counteracting)
   - Top driver 3: num_prior_delinquencies (value: 2) | SHAP: +0.18 -> pushed toward default
 
-(You should update the text with the actual values from the CSV files.)
-"""
+
 
 with open(os.path.join(OUTPUT_DIR, "shap_interpretation_template.txt"), "w") as f:
     f.write(interpretation_template)
 
 exec_summary = f"""
 Executive Summary (non-technical)
-================================
 Project: SHAP Analysis for Credit Risk Modeling
 
 Key results:
@@ -558,11 +552,7 @@ Files included in submission:
 - SHAP plots and CSVs: submission_outputs/
 - Executive summary: submission_outputs/executive_summary.txt
 
-Note: Local SHAP force plots include exact per-customer feature contributions. Use those to create 1-paragraph explanations for the 3 required instances.
 
-Prepared by: [Your Name]
-Date: [Fill date]
-"""
 
 with open(os.path.join(OUTPUT_DIR, "executive_summary.txt"), "w") as f:
     f.write(exec_summary)
